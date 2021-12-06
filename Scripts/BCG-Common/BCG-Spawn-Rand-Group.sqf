@@ -43,16 +43,21 @@ BCG_Spawn_Rand_Group = {
     };
 
 
-
 spawnWaves = {
+    
+
+
+
+
     params ["_Spawntargets", "_side", "_spawnGroups", "_AISkills", "_Spawnside", "_enemySide", "_Spawnmindelay", "_Spawnavgdelay", "_Spawnmaxdelay", "_midDegrade"];
     while {true} do { 
-        if(SHOULD_KEEP_SPAWNING) then 
+        if(SHOULD_KEEP_SPAWNING && MAXIMUM_SPAWNED_GROUPS > 0)  then 
         {
             _SpawnPosistion = selectRandom _Spawntargets;
 
-            if([_Spawnside] call getSideGroupNums < 25) then {
+            if([_Spawnside] call getSideGroupNums < MAXIMUM_ACTIVE_GROUPS) then {
                 _NewGroup = [_SpawnPosistion, east, _Spawngroups select (floor (random (count _Spawngroups))), _AISkills, _Spawnside, _enemySide] call BCG_Spawn_Rand_Group;
+                MAXIMUM_SPAWNED_GROUPS = MAXIMUM_SPAWNED_GROUPS - 1;
             };
 
 
@@ -63,9 +68,19 @@ spawnWaves = {
                     deleteWaypoint [_EditGroup, _i];
                 };
 
-                    _NewGroupWayPoint = _EditGroup addWaypoint [position _moveHere, 0];
-                    _NewGroupWayPoint setWaypointType "MOVE";
+                _NewGroupWayPoint = _EditGroup addWaypoint [position _moveHere, 0];
+                _NewGroupWayPoint setWaypointType "MOVE";
+
+
+                if({alive _x} count units _EditGroup == 0) then 
+                {
+                    _EditGroup setVariable ["spawned",false];
+                };
+
+
             } foreach (allGroups select {side _x == _Spawnside && (_x getVariable ["spawned",true])});
+
+            
             
             
             hint format ["Times: %1, %2, %3", _Spawnmindelay, _Spawnavgdelay, _Spawnmaxdelay];
