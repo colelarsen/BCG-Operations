@@ -1,8 +1,9 @@
 execVM "Scripts\Attrition\infantry.sqf";
+
+//Time until cars start spawning
 //sleep 300;
 execVM "Scripts\Attrition\car.sqf";
+
+//Time until armor starts spawning
 //sleep 600;
 execVM "Scripts\Attrition\armor.sqf";
-
-MAXIMUM_SPAWNED_GROUPS = 5;
-MAXIMUM_ACTIVE_GROUPS = 1;
