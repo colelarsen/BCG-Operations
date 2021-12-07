@@ -3,7 +3,7 @@ call compileFinal  preprocessFileLineNumbers "Scripts\BCG-Common\BCG-Starting-Hi
 call compileFinal preprocessFileLineNumbers "f\safeStart\safety.sqf";
 
 //Only set to true when you are developing features in singleplayer
-IS_DEVELOPING = true;
+IS_DEVELOPING = false;
 
 
 
@@ -13,17 +13,20 @@ if (isDedicated || IS_DEVELOPING) then {
 	SAFETY_ON_SERVER = true;
 	//Start up the attrition game modes
 	call compileFinal preprocessFileLineNumbers "Scripts\Attrition\onStart.sqf";
+
+	//On player connect set up their safety
+	onPlayerConnected {
+	_owner publicVariableClient "SAFETY_ON_SERVER";
+	};
 }
 else {
+	sleep 5;
 	[SAFETY_ON_SERVER] call safety;
-
-	
 };
 
 
 
 
 ["General", "General", {}, {true}] call addActionGameMasterAce;
-
-["SafetyOn", "Safety On", {[true] remoteExec ["safety", 0];}, {true}, "General"] call addSubActionGameMasterAce;
-["SafetyOff", "Safety Off", {[false] remoteExec ["safety", 0];}, {true}, "General"] call addSubActionGameMasterAce;
+["SafetyOn", "Safety On", {[true] remoteExec ["safety", 0]; publicVariable "SAFETY_ON_SERVER";}, {true}, "General"] call addSubActionGameMasterAce;
+["SafetyOff", "Safety Off", {[false] remoteExec ["safety", 0]; publicVariable "SAFETY_ON_SERVER";}, {true}, "General"] call addSubActionGameMasterAce;

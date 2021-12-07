@@ -1,8 +1,8 @@
 ["Attrition", "Attrition", {}, {true}] call addActionGameMasterAce;
 
-["StartWaves", "Start Waves", {execVM "Scripts\Attrition\aihandler.sqf";}, {true}, "Attrition"] call addSubActionGameMasterAce;
-["PauseWaves", "Pause Waves", {SHOULD_KEEP_SPAWNING = false;}, {SHOULD_KEEP_SPAWNING}, "Attrition"] call addSubActionGameMasterAce;
-["ResumeWaves", "Resume Waves", {SHOULD_KEEP_SPAWNING = true;}, {not SHOULD_KEEP_SPAWNING}, "Attrition"] call addSubActionGameMasterAce;
+["StartWaves", "Start Waves", {["Scripts\Attrition\aihandler.sqf"] remoteExec ["execVM", 2];}, {true}, "Attrition"] call addSubActionGameMasterAce;
+["PauseWaves", "Pause Waves", {SHOULD_KEEP_SPAWNING = false; publicVariable "SHOULD_KEEP_SPAWNING"}, {SHOULD_KEEP_SPAWNING}, "Attrition"] call addSubActionGameMasterAce;
+["ResumeWaves", "Resume Waves", {SHOULD_KEEP_SPAWNING = true; publicVariable "SHOULD_KEEP_SPAWNING"}, {not SHOULD_KEEP_SPAWNING}, "Attrition"] call addSubActionGameMasterAce;
 
 
 
