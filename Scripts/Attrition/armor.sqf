@@ -2,8 +2,8 @@ call compileFinal preprocessFileLineNumbers "Scripts\BCG-Common\BCG-Spawn-Rand-G
 
 if (isDedicated || IS_DEVELOPING) then {
 
-	_spawn1 = getMarkerPos "infantrySpawn_1";
-	_spawn2 = getMarkerPos "infantrySpawn_1";
+	_spawn1 = getMarkerPos "armorSpawn_1";
+	_spawn2 = getMarkerPos "armorSpawn_2";
 	_Spawntarget = selectRandom [_spawn1,_spawn2];
 	_Deletedistance = 2000;
 	_Spawngroups = [

@@ -1,8 +1,8 @@
 call compileFinal preprocessFileLineNumbers "Scripts\BCG-Common\BCG-Spawn-Rand-Group.sqf";
 if (isDedicated || IS_DEVELOPING) then {
 
-	_spawn1 = getMarkerPos "infantrySpawn_1";
-	_spawn2 = getMarkerPos "infantrySpawn_1";
+	_spawn1 = getMarkerPos "carSpawn_1";
+	_spawn2 = getMarkerPos "carSpawn_2";
 	_Deletedistance = 2000;
 	_Spawngroups = [
 	(configfile >> "CfgGroups" >> "East" >> "rhs_faction_vdv" >> "rhs_group_rus_vdv_Ural" >> "rhs_group_rus_vdv_Ural_squad"),
