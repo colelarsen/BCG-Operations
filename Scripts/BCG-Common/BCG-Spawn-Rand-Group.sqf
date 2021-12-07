@@ -44,11 +44,6 @@ BCG_Spawn_Rand_Group = {
 
 
 spawnWaves = {
-    
-
-
-
-
     params ["_Spawntargets", "_side", "_spawnGroups", "_AISkills", "_Spawnside", "_enemySide", "_Spawnmindelay", "_Spawnavgdelay", "_Spawnmaxdelay", "_midDegrade"];
     while {true} do { 
         if(SHOULD_KEEP_SPAWNING && MAXIMUM_SPAWNED_GROUPS > 0)  then 
@@ -83,7 +78,7 @@ spawnWaves = {
             
             
             
-            hint format ["Times: %1, %2, %3", _Spawnmindelay, _Spawnavgdelay, _Spawnmaxdelay];
+            //hint format ["Times: %1, %2, %3", _Spawnmindelay, _Spawnavgdelay, _Spawnmaxdelay];
             
             sleep (random [_Spawnmindelay,_Spawnavgdelay,_Spawnmaxdelay]);
 

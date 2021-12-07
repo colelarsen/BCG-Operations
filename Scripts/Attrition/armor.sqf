@@ -34,7 +34,4 @@ if (isDedicated || IS_DEVELOPING) then {
 	];
 
 	h = [[_spawn1,_spawn2],east,_Spawngroups,_AISkills,_Spawnside,_enemySide,_Spawnmindelay,_Spawnavgdelay,_Spawnmaxdelay,0] spawn spawnWaves;
-
-
-
 };
