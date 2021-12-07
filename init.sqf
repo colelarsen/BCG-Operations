@@ -11,18 +11,19 @@ IS_DEVELOPING = false;
 
 if (isDedicated || IS_DEVELOPING) then {
 	SAFETY_ON_SERVER = true;
-	//Start up the attrition game modes
-	call compileFinal preprocessFileLineNumbers "Scripts\Attrition\onStart.sqf";
-
 	//On player connect set up their safety
 	onPlayerConnected {
 	_owner publicVariableClient "SAFETY_ON_SERVER";
 	};
 }
 else {
-	sleep 5;
+	sleep 2;
 	[SAFETY_ON_SERVER] call safety;
 };
+
+
+//Uncomment if using attrition
+//call compileFinal preprocessFileLineNumbers "Scripts\Attrition\onStart.sqf";
 
 
 
