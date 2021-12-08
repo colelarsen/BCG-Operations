@@ -23,34 +23,10 @@ if (isDedicated || IS_DEVELOPING) then {
 		params ["_killed", "_killer", "_instigator"];
 		if (isPlayer _instigator) then {
 			if (not (side group _killed isEqualTo side _instigator)) then {
-				if((vehicle _killed) isKindOf "Tank") then 
+				if(_killed isKindOf "Man") then 
 				{
-					_instigator addPlayerScores [0, 0, 1, 0,0];
-					// hint "Player Killed Tank";
-				} else 
-				{
-					if((vehicle _killed) isKindOf "Car") then 
-					{
-						_instigator addPlayerScores [0, 1, 0, 0,0];
-						// hint "Player Killed Car";
-					}
-					else 
-					{
-						if((vehicle _killed) isKindOf "Helicopter" || (vehicle _killed) isKindOf "Plane") then 
-						{
-							_instigator addPlayerScores [0, 0, 0, 1,0];
-							// hint "Player Killed Helicopter";
-						}
-						else 
-						{
-							_instigator addPlayerScores [1, 0, 0, 0,0];
-							// hint "Player Killed Man";
-						};
-					};
-				};
-				format ["%1",_instigator_kills] remoteExec ["hint",_instigator];
-				// to add one more point than the standard score against infantry
-			
+					instigator addPlayerScores [1, 0, 0, 0,0];
+				};			
 		};
 	};
 	}];
