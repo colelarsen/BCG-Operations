@@ -39,3 +39,38 @@ addSubActionGameMasterAce = {
     _action = [_name,_description,"",_statement,_condition] call ace_interact_menu_fnc_createAction;
     [["ACE_ZeusActions", _path], _action] call ace_interact_menu_fnc_addActionToZeus;
 };
+
+
+
+
+
+
+
+getXYVelocity = {
+	params ["_projectile"];
+	abs((velocity _projectile) select 0) + abs((velocity _projectile) select 1);
+};
+
+getTotalVelocity = {
+	params ["_projectile"];
+	abs((velocity _projectile) select 0) + abs((velocity _projectile) select 1) + abs((velocity _projectile) select 2);
+};
+
+getZVelocity = {
+	params ["_projectile"];
+	abs((velocity _projectile) select 2);
+};
+projectileTrackHit = {
+	params ["_projectile"];
+	sleep 0.15;
+	_lastXYVel = [_projectile] call getXYVelocity;
+	while {true} do
+	{
+		sleep 0.15;
+		//Change in XY Velocity is less than 0.1
+		if(abs (([_projectile] call getXYVelocity) - _lastXYVel) > 0.1) exitWith {true};
+		_lastXYVel = [_projectile] call getXYVelocity;
+	}; 
+	_projectile setVelocity ((velocity _projectile) vectorMultiply 0.1);
+	if(true) exitWith {true};
+};

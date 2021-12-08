@@ -19,11 +19,12 @@ call compileFinal preprocessFileLineNumbers "f\safeStart\safety.sqf";
 	***************************
 */
 
-IS_DEVELOPING = true; //Only set to true when you are developing features in singleplayer
+IS_DEVELOPING = false; //Only set to true when you are developing features in singleplayer
 
 
-SAFETY_ON_SERVER = true; //Should the safety be on when server starts
+SAFETY_ON_SERVER = false; //Should the safety be on when server starts
 ATTRITION_ENABLED = false; //Should the attrition gamemode / controlls be available
+LESS_GL_SMOKE_BOUNCE_ENABLED = false; //Reduces smoke grenade BOUNCE velocity by 90%
 
 
 
@@ -56,6 +57,19 @@ else {
 	sleep 2;
 	//Configure their safety for whatever value was got from server
 	[SAFETY_ON_SERVER] call safety;
+
+
+	//Turn on less grenade bouncing
+	if(LESS_GL_SMOKE_BOUNCE_ENABLED) then 
+	{
+		//When player fires
+		player addEventHandler["Fired", {
+		if(["smoke", typeOf (_this select 6)] call BIS_fnc_inString) then 
+		{
+			[_this select 6] spawn projectileTrackHit;
+		}
+		}];
+	};
 };
 
 
