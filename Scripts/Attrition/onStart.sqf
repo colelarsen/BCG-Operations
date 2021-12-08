@@ -6,6 +6,10 @@
  * Sets up Zeus handlers and sets some server side global vars
 */
 
+SHOULD_KEEP_SPAWNING = true;
+MAXIMUM_SPAWNED_GROUPS = 100;
+MAXIMUM_ACTIVE_GROUPS = 20;
+
 ["Attrition", "Attrition", {}, {true}] call addActionGameMasterAce;
 
 ["StartWaves", "Start Waves", {["Scripts\Attrition\aihandler.sqf"] remoteExec ["execVM", 2];}, {true}, "Attrition"] call addSubActionGameMasterAce;
@@ -14,6 +18,3 @@
 
 
 
-SHOULD_KEEP_SPAWNING = true;
-MAXIMUM_SPAWNED_GROUPS = 100;
-MAXIMUM_ACTIVE_GROUPS = 20;

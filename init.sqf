@@ -23,8 +23,8 @@ IS_DEVELOPING = false; //Only set to true when you are developing features in si
 
 
 SAFETY_ON_SERVER = false; //Should the safety be on when server starts
-ATTRITION_ENABLED = false; //Should the attrition gamemode / controlls be available
 LESS_GL_SMOKE_BOUNCE_ENABLED = false; //Reduces smoke grenade BOUNCE velocity by 90%
+ATTRITION_ENABLED = false; //Should the attrition gamemode / controlls be available
 
 
 
