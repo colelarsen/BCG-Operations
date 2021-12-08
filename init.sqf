@@ -19,7 +19,7 @@ call compileFinal preprocessFileLineNumbers "f\safeStart\safety.sqf";
 	***************************
 */
 
-IS_DEVELOPING = false; //Only set to true when you are developing features in singleplayer
+IS_DEVELOPING = true; //Only set to true when you are developing features in singleplayer
 
 
 SAFETY_ON_SERVER = true; //Should the safety be on when server starts
@@ -27,7 +27,7 @@ ATTRITION_ENABLED = false; //Should the attrition gamemode / controlls be availa
 
 
 
-
+//Called ONLY on the server when server starts mission
 if (isDedicated || IS_DEVELOPING) then {
 	//On player connect send them the current value of SAFETY_ON_SERVER
 	onPlayerConnected {
@@ -60,7 +60,7 @@ else {
 
 
 //Enable attrition gamemode
-if(ATTRTION_ENABLED) then {
+if(ATTRITION_ENABLED) then {
 	call compileFinal preprocessFileLineNumbers "Scripts\Attrition\onStart.sqf";
 };
 
