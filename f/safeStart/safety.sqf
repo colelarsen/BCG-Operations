@@ -1,3 +1,10 @@
+/**
+ * Author - https://github.com/ferstaberinde/F3/blob/master/f/safeStart/fn_safety.sqf
+ * 
+ * Called by players when they join the server
+ *
+ * 
+*/
 
 safety = {
 	

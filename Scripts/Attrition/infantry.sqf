@@ -1,3 +1,11 @@
+/**
+ * Author - Cole Larsen
+ * Used with Attrition
+ * Called when Start Waves is used by Zeus
+ *
+ * Example for how to use Attrition gamemode
+*/
+
 call compileFinal preprocessFileLineNumbers "Scripts\BCG-Common\BCG-Spawn-Rand-Group.sqf";
 
 if (isDedicated || IS_DEVELOPING) then {
@@ -38,6 +46,6 @@ if (isDedicated || IS_DEVELOPING) then {
 
     
 
-	h = [[_spawn1,_spawn2,_spawn3],east,_Spawngroups,_AISkills,_Spawnside,_enemySide,_Spawnmindelay,_Spawnavgdelay,_Spawnmaxdelay,_SpawnAvgDegrade] spawn spawnWaves;
+	h = [[_spawn1,_spawn2,_spawn3],_Spawngroups,_AISkills,_Spawnside,_enemySide,_Spawnmindelay,_Spawnavgdelay,_Spawnmaxdelay,_SpawnAvgDegrade] spawn spawnWaves;
 
 }

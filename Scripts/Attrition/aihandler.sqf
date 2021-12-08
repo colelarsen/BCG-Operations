@@ -1,3 +1,11 @@
+/**
+ * Author - Cole Larsen
+ * Used with Attrition
+ * Called when Zeus uses "Start Waves"
+ *
+ * Default code is for spawning infantry and cars and armor but using this format you can spawn anything anywhere
+*/
+
 execVM "Scripts\Attrition\infantry.sqf";
 
 //Time until cars start spawning

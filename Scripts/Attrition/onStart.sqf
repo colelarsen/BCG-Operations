@@ -1,3 +1,11 @@
+/**
+ * Author - Cole Larsen
+ * Used with Attrition
+ * Called when server is starting and Attrition is enabled
+ *
+ * Sets up Zeus handlers and sets some server side global vars
+*/
+
 ["Attrition", "Attrition", {}, {true}] call addActionGameMasterAce;
 
 ["StartWaves", "Start Waves", {["Scripts\Attrition\aihandler.sqf"] remoteExec ["execVM", 2];}, {true}, "Attrition"] call addSubActionGameMasterAce;

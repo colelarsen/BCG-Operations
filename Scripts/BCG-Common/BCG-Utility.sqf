@@ -1,3 +1,13 @@
+/**
+ * Author - Cole Larsen
+ * Helper functions for various BCG scripts
+ * 
+ *
+ * Core mechanics of Attrition
+*/
+
+
+//Get number of groups on a side that BCG spawned
 getSideGroupNums = {
 
     private _Spawnside = _this select 0;
@@ -5,6 +15,7 @@ getSideGroupNums = {
     count (allGroups select {side _x == _Spawnside && (_x getVariable ["spawned",true])});
 };
 
+//Add actions to Zeus ACE interact
 addActionGameMasterAce = {
 
     _name = _this select 0;
@@ -16,6 +27,7 @@ addActionGameMasterAce = {
     [["ACE_ZeusActions"], _action] call ace_interact_menu_fnc_addActionToZeus;
 };
 
+//Add actions to Zeus ACE interact in a sub directory
 addSubActionGameMasterAce = {
 
     _name = _this select 0;

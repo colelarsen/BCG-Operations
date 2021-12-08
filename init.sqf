@@ -1,17 +1,35 @@
+/**
+ * Author - Cole Larsen
+ * 
+ * Called Mission starts or when Player joins
+ *
+ * 
+*/
+
+//Compile commonly used / helper functions
 call compileFinal  preprocessFileLineNumbers "Scripts\BCG-Common\BCG-Utility.sqf";
-call compileFinal  preprocessFileLineNumbers "Scripts\BCG-Common\BCG-Starting-Hints.sqf";
 call compileFinal preprocessFileLineNumbers "f\safeStart\safety.sqf";
 
-//Only set to true when you are developing features in singleplayer
-IS_DEVELOPING = false;
 
+
+
+/**
+	***************************
+	Configurable Variables
+	***************************
+*/
+
+IS_DEVELOPING = false; //Only set to true when you are developing features in singleplayer
+
+
+SAFETY_ON_SERVER = true; //Should the safety be on when server starts
+ATTRITION_ENABLED = false; //Should the attrition gamemode / controlls be available
 
 
 
 
 if (isDedicated || IS_DEVELOPING) then {
-	SAFETY_ON_SERVER = true;
-	//On player connect set up their safety
+	//On player connect send them the current value of SAFETY_ON_SERVER
 	onPlayerConnected {
 	_owner publicVariableClient "SAFETY_ON_SERVER";
 	};
@@ -31,16 +49,23 @@ if (isDedicated || IS_DEVELOPING) then {
 	};
 	}];
 }
+//When a player joins execute the below code
 else {
+
+	//Sleep for a short while so values from server can be populated
 	sleep 2;
+	//Configure their safety for whatever value was got from server
 	[SAFETY_ON_SERVER] call safety;
 };
 
 
-//Uncomment if using attrition
-//call compileFinal preprocessFileLineNumbers "Scripts\Attrition\onStart.sqf";
+//Enable attrition gamemode
+if(ATTRTION_ENABLED) then {
+	call compileFinal preprocessFileLineNumbers "Scripts\Attrition\onStart.sqf";
+};
 
 
+//General BCG Zeus ACE interact handlers
 ["General", "General", {}, {true}] call addActionGameMasterAce;
 ["SafetyOn", "Safety On", {[true] remoteExec ["safety", 0]; publicVariable "SAFETY_ON_SERVER";}, {true}, "General"] call addSubActionGameMasterAce;
 ["SafetyOff", "Safety Off", {[false] remoteExec ["safety", 0]; publicVariable "SAFETY_ON_SERVER";}, {true}, "General"] call addSubActionGameMasterAce;
