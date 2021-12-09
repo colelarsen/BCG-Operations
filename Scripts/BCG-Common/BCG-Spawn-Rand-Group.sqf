@@ -14,15 +14,14 @@ call compileFinal preprocessFileLineNumbers "Scripts\BCG-Common\BCG-Utility.sqf"
 */
 BCG_Spawn_Rand_Group = {
 
+     params ["_spawnPosistion", "_spawnGroup", "_AISkills", "_Spawnside"];
+
     
-    private _spawnPosistion = _this select 0;
-    private _spawnGroup = _this select 1;
-    private _AISkills = _this select 2;
+    _NewGroup = [_spawnPosistion, east, _spawnGroup, [],[],[],[],[],[], false] call BIS_fnc_spawnGroup;
 
 
-    _NewGroup = [_spawnPosistion, east, _spawnGroup,[],[],[],[],[],[], false] call BIS_fnc_spawnGroup;
     _NewGroup setVariable ["spawned",true];
-    _NewGroup deleteGroupWhenEmpty true;
+    //_NewGroup deleteGroupWhenEmpty true;
 
     {
         _EditUnit = _x;
@@ -35,16 +34,24 @@ BCG_Spawn_Rand_Group = {
         
     } forEach units _NewGroup;
 
+    _NewGroup addVehicle (vehicle ((units _NewGroup) select 0));
+    _NewGroup addVehicle (vehicle ((units _NewGroup) select 1));
+    
+    _moveHere = selectRandom allPlayers; 
+    NewGroupWayPoint = _NewGroup addWaypoint [position _moveHere, 0];
+    NewGroupWayPoint setWaypointType "SAD";
+    NewGroupWayPoint setWaypointTimeout [20, 20, 20];
 
-    _moveHere = selectRandom allPlayers;
+
+
+
 
 
     _NewGroup enableGunLights "forceOn";
     _NewGroup setBehaviour "AWARE";
     _NewGroup setSpeedMode "FULL";
     _NewGroup allowFleeing 0;
-    _GroupWayPoint = _NewGroup addWaypoint [position _moveHere, 0];
-    _GroupWayPoint setWaypointType "MOVE";
+
 
     _NewGroup;
 
@@ -64,6 +71,7 @@ BCG_Spawn_Rand_Group = {
  * _midDegrade - Every time a wave comes in, subtract the _Spawnavgdelay by _midDegrade. Effectively shift the bell curve by _midDegrade. Reduces average time between wave spawns
 */
 spawnWaves = {
+    
     params ["_Spawntargets", "_spawnGroups", "_AISkills", "_Spawnside", "_enemySide", "_Spawnmindelay", "_Spawnavgdelay", "_Spawnmaxdelay", "_midDegrade"];
     while {true} do { 
         if(SHOULD_KEEP_SPAWNING && MAXIMUM_SPAWNED_GROUPS > 0)  then 
@@ -72,21 +80,26 @@ spawnWaves = {
 
             //If less than the max active groups are around then spawn in more groups
             if([_Spawnside] call getSideGroupNums < MAXIMUM_ACTIVE_GROUPS) then {
-                _NewGroup = [_SpawnPosistion, selectRandom _Spawngroups, _AISkills] call BCG_Spawn_Rand_Group;
+                _NewGroup = [_SpawnPosistion, (selectRandom _Spawngroups), _AISkills, _Spawnside] call BCG_Spawn_Rand_Group;
                 MAXIMUM_SPAWNED_GROUPS = MAXIMUM_SPAWNED_GROUPS - 1;
+
+                (units _NewGroup) orderGetIn true;
             };
 
             //Update the move orders of spawned groups to a current player position
-            _moveHere = selectRandom allPlayers;
+            
+
+
             {
+                _moveHere = selectRandom allPlayers;
                 _EditGroup = _x;
                 for "_i" from count waypoints _EditGroup - 1 to 0 step -1 do  { 
                     deleteWaypoint [_EditGroup, _i];
                 };
-
                 _NewGroupWayPoint = _EditGroup addWaypoint [position _moveHere, 0];
-                _NewGroupWayPoint setWaypointType "MOVE";
+                _NewGroupWayPoint setWaypointType "SAD";
 
+                
 
                 if({alive _x} count units _EditGroup == 0) then 
                 {
@@ -94,7 +107,7 @@ spawnWaves = {
                 };
 
 
-            } foreach (allGroups select {side _x == _Spawnside && (_x getVariable ["spawned",true])});
+            // } foreach (allGroups select {side _x == _Spawnside && (_x getVariable ["spawned",false])});
 
             
             

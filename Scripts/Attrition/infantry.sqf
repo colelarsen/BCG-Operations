@@ -23,10 +23,9 @@ if (isDedicated || IS_DEVELOPING) then {
 
     _SpawnArray = [_spawn1,_spawn2,_spawn3];
 
-    _Spawnmaxdelay = 5;
-    _Spawnavgdelay = 5;
-    _Spawnmindelay = 5;
-
+    _Spawnmaxdelay = 60;
+    _Spawnavgdelay = 120;
+    _Spawnmindelay = 180;
     _SpawnAvgDegrade = 0;
 
     _Spawnside = OPFOR;

@@ -12,7 +12,7 @@ getSideGroupNums = {
 
     private _Spawnside = _this select 0;
 
-    count (allGroups select {side _x == _Spawnside && (_x getVariable ["spawned",true])});
+    count (allGroups select {side _x == _Spawnside && (_x getVariable ["spawned",false])});
 };
 
 //Add actions to Zeus ACE interact
