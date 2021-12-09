@@ -6,7 +6,7 @@
  * Example for how to use Attrition gamemode
 */
 
-call compileFinal preprocessFileLineNumbers "Scripts\BCG-Common\BCG-Spawn-Rand-Group.sqf";
+call compile preprocessFileLineNumbers "Scripts\BCG-Common\BCG-Spawn-Rand-Group.sqf";
 
 if (isDedicated || IS_DEVELOPING) then {
 

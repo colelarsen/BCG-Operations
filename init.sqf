@@ -8,23 +8,11 @@
 
 //Compile commonly used / helper functions
 call compileFinal  preprocessFileLineNumbers "Scripts\BCG-Common\BCG-Utility.sqf";
+call compileFinal  preprocessFileLineNumbers "Scripts\BCG-Common\BCG-Global-Vars.sqf";
 call compileFinal preprocessFileLineNumbers "f\safeStart\safety.sqf";
 
 
 
-
-/**
-	***************************
-	Configurable Variables
-	***************************
-*/
-
-IS_DEVELOPING = false; //Only set to true when you are developing features in singleplayer
-
-
-SAFETY_ON_SERVER = false; //Should the safety be on when server starts
-LESS_GL_SMOKE_BOUNCE_ENABLED = false; //Reduces smoke grenade BOUNCE velocity by 90%
-ATTRITION_ENABLED = false; //Should the attrition gamemode / controlls be available
 
 
 
@@ -34,30 +22,15 @@ if (isDedicated || IS_DEVELOPING) then {
 	onPlayerConnected {
 	_owner publicVariableClient "SAFETY_ON_SERVER";
 	};
-
-
-
-	//Fixes ace bad kill counter
-	addMissionEventHandler ["EntityKilled",{
-		params ["_killed", "_killer", "_instigator"];
-		if (isPlayer _instigator) then {
-			if (not (side group _killed isEqualTo side _instigator)) then {
-				if(_killed isKindOf "Man") then 
-				{
-					instigator addPlayerScores [1, 0, 0, 0,0];
-				};			
-		};
-	};
-	}];
 }
 //When a player joins execute the below code
 else {
 
 	//Sleep for a short while so values from server can be populated
 	sleep 2;
-	//Configure their safety for whatever value was got from server
-	[SAFETY_ON_SERVER] call safety;
 
+	//Configure player safety for whatever value was got from server
+	[SAFETY_ON_SERVER] call safety;
 
 	//Turn on less grenade bouncing
 	if(LESS_GL_SMOKE_BOUNCE_ENABLED) then 
@@ -73,10 +46,25 @@ else {
 };
 
 
-//Enable attrition gamemode
-if(ATTRITION_ENABLED) then {
-	call compileFinal preprocessFileLineNumbers "Scripts\Attrition\onStart.sqf";
+
+
+
+//Fixes ace bad kill counter
+addMissionEventHandler ["EntityKilled",{
+	params ["_killed", "_killer", "_instigator"];
+	if (isPlayer _instigator) then {
+		if (not (side group _killed isEqualTo side _instigator)) then {
+			if(_killed isKindOf "Man") then 
+			{
+				instigator addPlayerScores [1, 0, 0, 0,0];
+			};			
+	};
 };
+}];
+
+
+//Always initialize this, but only 
+call compile preprocessFileLineNumbers "Scripts\Attrition\onStart.sqf";
 
 
 //General BCG Zeus ACE interact handlers
