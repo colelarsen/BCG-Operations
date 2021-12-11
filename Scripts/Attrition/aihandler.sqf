@@ -8,14 +8,20 @@
 
 execVM "Scripts\Attrition\infantry.sqf";
 
-execVM "Scripts\Attrition\helicopter.sqf";
+//Time until cars start spawning
+// sleep 300;
+sleep 60;
+execVM "Scripts\Attrition\car.sqf";
+
 
 execVM "Scripts\Attrition\helicopter-dropoff.sqf";
 
-//Time until cars start spawning
-// sleep 300;
-execVM "Scripts\Attrition\car.sqf";
 
 //Time until armor starts spawning
 // sleep 600;
+
+sleep 60;
 execVM "Scripts\Attrition\armor.sqf";
+
+sleep 120;
+execVM "Scripts\Attrition\helicopter.sqf";

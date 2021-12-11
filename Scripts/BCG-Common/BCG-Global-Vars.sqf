@@ -13,7 +13,7 @@ IS_DEVELOPING = false; //Only set to true when you are developing features in si
 	General Server Settings
 	***************************
 */
-SAFETY_ON_SERVER = true; //Should the safety be on when server starts
+SAFETY_ON_SERVER = false; //Should the safety be on when server starts
 LESS_GL_SMOKE_BOUNCE_ENABLED = false; //Reduces smoke grenade BOUNCE velocity by 90%
 
 

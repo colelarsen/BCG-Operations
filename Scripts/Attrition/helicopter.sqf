@@ -13,13 +13,13 @@ if (isDedicated || IS_DEVELOPING) then {
     
     _Deletedistance = 2000;
     _Spawngroups = [
-    ["RHS_MELB_AH6M"]
+    ["CUP_O_Ka50_DL_RU"]
     ];
 
     _SpawnArray = [_spawn1];
 
-    _Spawnmaxdelay = 400;
-    _Spawnavgdelay = 400;
+    _Spawnmaxdelay = 800;
+    _Spawnavgdelay = 600;
     _Spawnmindelay = 400;
     _SpawnAvgDegrade = 0;
 
@@ -40,6 +40,6 @@ if (isDedicated || IS_DEVELOPING) then {
 
     
 
-	h = [[_spawn1],_Spawngroups,_AISkills,_Spawnside,_enemySide,_Spawnmindelay,_Spawnavgdelay,_Spawnmaxdelay,_SpawnAvgDegrade, "move"] spawn spawnWaves;
+	h = [[_spawn1],_Spawngroups,_AISkills,_Spawnside,_enemySide,_Spawnmindelay,_Spawnavgdelay,_Spawnmaxdelay,_SpawnAvgDegrade, "cas"] spawn spawnWaves;
 
 }

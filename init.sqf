@@ -10,7 +10,7 @@
 call compileFinal  preprocessFileLineNumbers "Scripts\BCG-Common\BCG-Utility.sqf";
 call compileFinal  preprocessFileLineNumbers "Scripts\BCG-Common\BCG-Global-Vars.sqf";
 call compileFinal preprocessFileLineNumbers "f\safeStart\safety.sqf";
-
+call compileFinal  preprocessFileLineNumbers "Scripts\BCG-Common\BCG-AI-Waypoints.sqf";
 
 
 
@@ -71,3 +71,7 @@ call compile preprocessFileLineNumbers "Scripts\Attrition\onStart.sqf";
 ["General", "General", {}, {true}] call addActionGameMasterAce;
 ["SafetyOn", "Safety On", {[true] remoteExec ["safety", 0]; publicVariable "SAFETY_ON_SERVER";}, {true}, "General"] call addSubActionGameMasterAce;
 ["SafetyOff", "Safety Off", {[false] remoteExec ["safety", 0]; publicVariable "SAFETY_ON_SERVER";}, {true}, "General"] call addSubActionGameMasterAce;
+
+
+
+call aiUpdater;

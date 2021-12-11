@@ -6,8 +6,12 @@
  * Example for how to use Attrition gamemode
 */
 
+
 call compile preprocessFileLineNumbers "Scripts\BCG-Common\BCG-Spawn-Rand-Group.sqf";
-if (isDedicated || IS_DEVELOPING) then {
+
+
+_spawnCarWaves = {
+	if (isDedicated || IS_DEVELOPING) then {
 
 	_spawn1 = getMarkerPos "carSpawn_1";
 	_spawn2 = getMarkerPos "carSpawn_2";
@@ -18,9 +22,9 @@ if (isDedicated || IS_DEVELOPING) then {
 	(configfile >> "CfgGroups" >> "East" >> "rhs_faction_vdv" >> "rhs_group_rus_vdv_gaz66" >> "rhs_group_rus_vdv_gaz66_squad")
 	];
 
-	_Spawnmaxdelay =300;
-	_Spawnavgdelay =480;
-	_Spawnmindelay =300;
+	_Spawnmaxdelay =200;
+	_Spawnavgdelay =150;
+	_Spawnmindelay =100;
 	_Spawnside = OPFOR;
 	_enemySide = BLUFOR;
 
@@ -36,7 +40,11 @@ if (isDedicated || IS_DEVELOPING) then {
 	["general", 0.5]
 	];
 
-	h = [[_spawn1,_spawn2],_Spawngroups,_AISkills,_Spawnside,_enemySide,_Spawnmindelay,_Spawnavgdelay,_Spawnmaxdelay,0, "move"] spawn spawnWaves;
+	h = [[_spawn1,_spawn2],_Spawngroups,_AISkills,_Spawnside,_enemySide,_Spawnmindelay,_Spawnavgdelay,_Spawnmaxdelay,0, "attack-players"] spawn spawnWaves;
 
 
-}
+	};
+};
+
+
+call _spawnCarWaves;
