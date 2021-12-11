@@ -23,9 +23,9 @@ if (isDedicated || IS_DEVELOPING) then {
 
     _SpawnArray = [_spawn1,_spawn2,_spawn3];
 
-    _Spawnmaxdelay = 60;
+    _Spawnmaxdelay = 200;
     _Spawnavgdelay = 120;
-    _Spawnmindelay = 180;
+    _Spawnmindelay = 60;
     _SpawnAvgDegrade = 0;
 
     _Spawnside = OPFOR;
@@ -45,6 +45,6 @@ if (isDedicated || IS_DEVELOPING) then {
 
     
 
-	h = [[_spawn1,_spawn2,_spawn3],_Spawngroups,_AISkills,_Spawnside,_enemySide,_Spawnmindelay,_Spawnavgdelay,_Spawnmaxdelay,_SpawnAvgDegrade] spawn spawnWaves;
+	h = [[_spawn1,_spawn2,_spawn3],_Spawngroups,_AISkills,_Spawnside,_enemySide,_Spawnmindelay,_Spawnavgdelay,_Spawnmaxdelay,_SpawnAvgDegrade, "move"] spawn spawnWaves;
 
 }

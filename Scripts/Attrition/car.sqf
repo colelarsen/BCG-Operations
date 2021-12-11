@@ -36,7 +36,7 @@ if (isDedicated || IS_DEVELOPING) then {
 	["general", 0.5]
 	];
 
-	h = [[_spawn1,_spawn2],_Spawngroups,_AISkills,_Spawnside,_enemySide,_Spawnmindelay,_Spawnavgdelay,_Spawnmaxdelay,0] spawn spawnWaves;
+	h = [[_spawn1,_spawn2],_Spawngroups,_AISkills,_Spawnside,_enemySide,_Spawnmindelay,_Spawnavgdelay,_Spawnmaxdelay,0, "move"] spawn spawnWaves;
 
 
 }
