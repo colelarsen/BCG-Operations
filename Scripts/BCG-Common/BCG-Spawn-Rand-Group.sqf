@@ -17,7 +17,7 @@ BCG_Spawn_Rand_Group = {
      params ["_spawnPosistion", "_spawnGroup", "_AISkills", "_Spawnside"];
 
     
-    _NewGroup = [_spawnPosistion, east, _spawnGroup, [],[],[],[],[],[], false] call BIS_fnc_spawnGroup;
+    _NewGroup = [_spawnPosistion, _Spawnside, _spawnGroup, [],[],[],[],[],[], false] call BIS_fnc_spawnGroup;
 
 
     _NewGroup setVariable ["spawned",true];
