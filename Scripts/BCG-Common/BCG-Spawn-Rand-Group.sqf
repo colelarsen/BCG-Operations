@@ -43,7 +43,7 @@ BCG_Spawn_Rand_Group = {
     NewGroupWayPoint setWaypointType "GETIN";
 
     NewGroupWayPoint = _NewGroup addWaypoint [position _moveHere, 1];
-    NewGroupWayPoint setWaypointType "SAD";
+    NewGroupWayPoint setWaypointType "MOVE";
     NewGroupWayPoint setWaypointTimeout [20, 20, 20];
 
 
@@ -85,20 +85,12 @@ spawnWaves = {
             {
                 _moveHere = selectRandom allPlayers;
                 _EditGroup = _x;
-                for "_i" from count waypoints _EditGroup - 1 to 0 step -1 do  { 
-                    deleteWaypoint [_EditGroup, _i];
-                };
-                _NewGroupWayPoint = _EditGroup addWaypoint [position _moveHere, 0];
-                _NewGroupWayPoint setWaypointType "SAD";
-
-                
-
+                _NewGroupWayPoint = _EditGroup addWaypoint [position _moveHere, count waypoints _EditGroup];
+                _NewGroupWayPoint setWaypointType "MOVE";
                 if({alive _x} count units _EditGroup == 0) then 
                 {
                     _EditGroup setVariable ["spawned",false];
                 };
-
-
             } foreach (allGroups select {side _x == _Spawnside && (_x getVariable ["spawned",false])});
 
 
