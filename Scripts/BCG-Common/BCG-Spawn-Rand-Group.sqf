@@ -38,7 +38,11 @@ BCG_Spawn_Rand_Group = {
     _NewGroup addVehicle (vehicle ((units _NewGroup) select 1));
     
     _moveHere = selectRandom allPlayers; 
-    NewGroupWayPoint = _NewGroup addWaypoint [position _moveHere, 0];
+
+    NewGroupWayPoint = _NewGroup addWaypoint [position ((units _NewGroup) select 0), 0];
+    NewGroupWayPoint setWaypointType "GETIN";
+
+    NewGroupWayPoint = _NewGroup addWaypoint [position _moveHere, 1];
     NewGroupWayPoint setWaypointType "SAD";
     NewGroupWayPoint setWaypointTimeout [20, 20, 20];
 
@@ -76,20 +80,8 @@ spawnWaves = {
     while {true} do { 
         if(SHOULD_KEEP_SPAWNING && MAXIMUM_SPAWNED_GROUPS > 0)  then 
         {
-            _SpawnPosistion = selectRandom _Spawntargets;
-
-            //If less than the max active groups are around then spawn in more groups
-            if([_Spawnside] call getSideGroupNums < MAXIMUM_ACTIVE_GROUPS) then {
-                _NewGroup = [_SpawnPosistion, (selectRandom _Spawngroups), _AISkills, _Spawnside] call BCG_Spawn_Rand_Group;
-                MAXIMUM_SPAWNED_GROUPS = MAXIMUM_SPAWNED_GROUPS - 1;
-
-                (units _NewGroup) orderGetIn true;
-            };
 
             //Update the move orders of spawned groups to a current player position
-            
-
-
             {
                 _moveHere = selectRandom allPlayers;
                 _EditGroup = _x;
@@ -107,7 +99,22 @@ spawnWaves = {
                 };
 
 
-            // } foreach (allGroups select {side _x == _Spawnside && (_x getVariable ["spawned",false])});
+            } foreach (allGroups select {side _x == _Spawnside && (_x getVariable ["spawned",false])});
+
+
+
+            _SpawnPosistion = selectRandom _Spawntargets;
+
+            //If less than the max active groups are around then spawn in more groups
+            if([_Spawnside] call getSideGroupNums < MAXIMUM_ACTIVE_GROUPS) then {
+                _NewGroup = [_SpawnPosistion, (selectRandom _Spawngroups), _AISkills, _Spawnside] call BCG_Spawn_Rand_Group;
+                MAXIMUM_SPAWNED_GROUPS = MAXIMUM_SPAWNED_GROUPS - 1;
+
+                (units _NewGroup) orderGetIn true;
+            };
+
+            
+        
 
             
             
