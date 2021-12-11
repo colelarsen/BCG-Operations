@@ -107,7 +107,6 @@ spawnWaves = {
                 _NewGroup = [_SpawnPosistion, (selectRandom _Spawngroups), _AISkills, _Spawnside] call BCG_Spawn_Rand_Group;
                 MAXIMUM_SPAWNED_GROUPS = MAXIMUM_SPAWNED_GROUPS - 1;
 
-                (units _NewGroup) orderGetIn true;
             };
 
             
