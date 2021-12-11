@@ -85,6 +85,11 @@ spawnWaves = {
             {
                 _moveHere = selectRandom allPlayers;
                 _EditGroup = _x;
+                if(count waypoints _EditGroup >= 3) then {
+                    deleteWaypoint [_EditGroup, 0];
+                };
+
+                
                 _NewGroupWayPoint = _EditGroup addWaypoint [position _moveHere, count waypoints _EditGroup];
                 _NewGroupWayPoint setWaypointType "MOVE";
                 if({alive _x} count units _EditGroup == 0) then 
