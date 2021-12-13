@@ -42,4 +42,7 @@ if (isDedicated || IS_DEVELOPING) then {
 
 	h = [[_spawn1],_Spawngroups,_AISkills,_Spawnside,_enemySide,_Spawnmindelay,_Spawnavgdelay,_Spawnmaxdelay,_SpawnAvgDegrade, "cas"] spawn spawnWaves;
 
+
+    
+
 }

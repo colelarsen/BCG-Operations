@@ -43,6 +43,46 @@ else {
 		}
 		}];
 	};
+
+
+
+	// player addEventHandler ["Fired", {
+	// 	_null = _this spawn {
+	// 		if(["smoke", typeOf (_this select 6)] call BIS_fnc_inString) then {
+	// 			_missile = _this select 6;
+
+	// 			[_this select 6] call projectileTrackHit;
+
+	// 			_cam = "camera" camCreate (position (_this select 6)); 
+	// 			_cam cameraEffect ["Internal", "Back"];
+	// 			// _cam camCommand "MANUAL ON";
+	// 			_cam camCommand "speedMax 1";
+	// 			_cam camCommand "speedDefault 0.1";
+	// 			_cam camCommand "atl on";
+	// 			_cam camCommand "surfaceSpeed on";
+	// 			_cam camCommand "maxPitch 30";
+	// 			_cam camCommand "minPitch -30";
+
+	// 			_cam camCommitPrepared 0;
+
+	// 			deleteVehicle _missile;
+
+	// 			waitUntil {camCommitted _cam};
+
+	// 			CAM_ON = true;
+
+	// 			_action = ["ReturntoBody","Return to Body","",{params ["_cam"]; _cam cameraEffect ["Terminate", "Back"];camDestroy _cam; CAM_ON = false; [player,1,["ACE_SelfActions","ReturntoBody"]] call ace_interact_menu_fnc_removeActionFromObject;},{CAM_ON},{},[_cam]] call ace_interact_menu_fnc_createAction;
+	// 			[player, 1, ["ACE_SelfActions"], _action] call ace_interact_menu_fnc_addActionToObject;
+				
+	// 		} else {
+	// 			systemChat "NOT SMOKE GONE";
+	// 		};
+
+			
+	// 	};
+	// }];
+
+
 };
 
 
@@ -73,5 +113,6 @@ call compile preprocessFileLineNumbers "Scripts\Attrition\onStart.sqf";
 ["SafetyOff", "Safety Off", {[false] remoteExec ["safety", 0]; publicVariable "SAFETY_ON_SERVER";}, {true}, "General"] call addSubActionGameMasterAce;
 
 
-
-call aiUpdater;
+_handle = [] spawn {
+    call aiUpdater;
+};

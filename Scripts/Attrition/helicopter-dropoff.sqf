@@ -14,9 +14,9 @@ _helidrop = {
         
         _Deletedistance = 2000;
         _Spawngroups = [
-        ["O_Soldier_SL_F","O_Soldier_AR_F","O_HeavyGunner_F","O_Soldier_AAR_F","O_soldier_M_F","O_Sharpshooter_F","O_Soldier_LAT_F","O_medic_F","O_Soldier_SL_F","O_Soldier_AR_F","O_HeavyGunner_F","O_Soldier_AAR_F","O_soldier_M_F","O_Sharpshooter_F","O_Soldier_LAT_F"],
-        ["O_Soldier_SL_F", "O_Soldier_SL_F"],
-        ["B_Heli_Transport_03_F"]
+        ["O_Soldier_SL_F","O_Soldier_AR_F","O_HeavyGunner_F","O_Soldier_AAR_F","O_soldier_M_F","O_Sharpshooter_F","O_Soldier_LAT_F"], //Troops to dropoff
+        ["O_Soldier_SL_F", "O_Soldier_SL_F", "O_Soldier_SL_F", "O_Soldier_SL_F"], //Crew, Pilot is position. Co-pilot is dependent on helictoper. Gunners will be filled from here.
+        ["B_Heli_Transport_03_F"] //Helicopter to use
         ];
 
         _SpawnArray = [_spawn1];

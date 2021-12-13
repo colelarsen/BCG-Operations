@@ -111,8 +111,15 @@ spawnWaves = {
                         
 
                         {_x moveincargo _helicopter} foreach units _troops;
-                        units _pilots select 0 moveInDriver _helicopter;
-                        units _pilots select 1 moveInGunner _helicopter;
+
+                        ((units _pilots) select 0) moveInDriver _helicopter;
+
+                        
+                        _j = 1;
+                        while {_j < (count (units _pilots))} do {
+                            ((units _pilots) select _j) moveInTurret [_helicopter, [_j-1]];
+                            _j = _j + 1;
+                        };
 
                         //Helicopter Move Order
                         _helicopter move _helicopterLanding;
@@ -182,16 +189,7 @@ spawnWaves = {
                         if(!([_helicopter] call helicopterFlyable)) then 
                         {
                             units _pilots join _troops;
-
                             _troops leaveVehicle _helicopter;
-                            _evacPosition = position _helicopter;
-                            _evacPosition set [2, 0];
-                            NewGroupWayPoint = _troops addWaypoint [_evacPosition, 0];
-                            NewGroupWayPoint setWaypointType "Unload";
-                            NewGroupWayPoint = _troops addWaypoint [position _moveHere, 1];
-                            NewGroupWayPoint setWaypointType "MOVE";
-                            _troops setVariable [_type,false];
-                            _troops setVariable ["attack-players",true];
                         }
                         //If helicopter flyable head home and 
                         else

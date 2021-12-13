@@ -80,13 +80,9 @@ helicopterFlyable = {
 	_MainRotorDamage = _helicopter getHitPointDamage "HitHRotor";
     _TailRotorDamage = _helicopter getHitPointDamage "HitVRotor";
 	_EngineDamage = _helicopter getHitPointDamage "HitEngine";
+	_Fuel = fuel _helicopter;
 
-
-	// systemChat format ["_MainRotorDamage: %1", _MainRotorDamage];
-	// systemChat format ["_TailRotorDamage: %1", _TailRotorDamage];
-	// systemChat format ["_EngineDamage: %1", _EngineDamage];
-
-	_MainRotorDamage < 0.5 && _TailRotorDamage < 0.5 && _EngineDamage < 0.5;
+	_MainRotorDamage < 0.5 && _TailRotorDamage < 0.5 && _EngineDamage < 0.5 && _Fuel > 0.1;
 };
 
 
