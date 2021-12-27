@@ -72,9 +72,9 @@ performParadrop = {
 	{
 		if(_x != _player) then {
 			if(isPlayer _x) then {
-				[_x,paradropTroop] remoteExec ["spawn",_x];
+				[_x] remoteExec [paradropTroop,_x];
 			}
-			else then {
+			else {
 				[_x] spawn paradropTroop;
 			};
 			sleep 0.5;

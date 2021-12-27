@@ -15,7 +15,7 @@ IS_DEVELOPING = false; //Only set to true when you are developing features in si
 */
 SAFETY_ON_SERVER = false; //Should the safety be on when server starts
 LESS_GL_SMOKE_BOUNCE_ENABLED = false; //Reduces smoke grenade BOUNCE velocity by 90%
-PARADROP_TOOL_ENABLED = false; //Enables drop commander to have access to paradrop tool
+PARADROP_TOOL_ENABLED = true; //Enables drop commander to have access to paradrop tool
 
 
 
