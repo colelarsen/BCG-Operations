@@ -21,6 +21,7 @@ if (isDedicated || IS_DEVELOPING) then {
 	//On player connect send them the current value of SAFETY_ON_SERVER
 	onPlayerConnected {
 	_owner publicVariableClient "SAFETY_ON_SERVER";
+	_owner publicVariableClient "PARADROP_TOOL_ENABLED";
 	};
 }
 //When a player joins execute the below code
@@ -44,36 +45,33 @@ else {
 		}];
 	};
 
+	if(PARADROP_TOOL_ENABLED) then 
+	{
+		//!isTouchingGround player && leader player == player(? check that the player is the leader)
+		["Paradrop Group", "Paradrop Squad", {
+
+			
+			[player] spawn performParadrop;
+
+
+		}, {
+		leader player == player && //Player is the leader of the group
+		((vehicle player) isKindOf "plane" || (vehicle player) isKindOf "helicopter") //Player is in plane or helicopter
+		
+		}] call addActionSelfInteract;
 
 
 
-	
+		["Parachute Eject", "Parachute Eject", {
+			[player] spawn paradropTroop;
+		}, {
+		(vehicle player) isKindOf "plane" || (vehicle player) isKindOf "helicopter" //Player is in plane or helicopter
+		}] call addActionSelfInteract;
+			
+	};
 };
 
-if(PARADROP_TOOL_ENABLED) then 
-{
-	//!isTouchingGround player && leader player == player(? check that the player is the leader)
-	["Paradrop Group", "Paradrop Squad", {
 
-		
-		[player] spawn performParadrop;
-
-
-	}, {!isTouchingGround player && //Player is off of the ground
-	leader player == player && //Player is the leader of the group
-	((vehicle player) isKindOf "plane" || (vehicle player) isKindOf "helicopter") //Player is in plane or helicopter
-	
-	}] call addActionSelfInteract;
-
-
-
-	["Parachute Eject", "Parachute Eject", {
-		[player] spawn paradropTroop;
-	}, {!isTouchingGround player && //Player is off of the ground
-	((vehicle player) isKindOf "plane" || (vehicle player) isKindOf "helicopter") //Player is in plane or helicopter
-	}] call addActionSelfInteract;
-		
-};
 
 
 //Always initialize this

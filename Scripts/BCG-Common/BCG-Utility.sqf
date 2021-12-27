@@ -54,7 +54,8 @@ addSubActionGameMasterAce = {
 
 
 paradropTroop = {
-	params ["_x"];
+	params ["_x", "_vehicle"];
+	if(vehicle _x == _vehicle)
 	_x allowDamage false;
 	[_x] call zade_boc_fnc_actionOnChest;
 	_x addBackpack "B_Parachute";
@@ -72,7 +73,7 @@ performParadrop = {
 	{
 		if(_x != _player) then {
 			if(isPlayer _x) then {
-				[_x] remoteExec [paradropTroop,_x];
+				[_x, vehicle _player] remoteExec ["paradropTroop",_x];
 			}
 			else {
 				[_x] spawn paradropTroop;
