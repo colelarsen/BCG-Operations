@@ -46,64 +46,37 @@ else {
 
 
 
-	// player addEventHandler ["Fired", {
-	// 	_null = _this spawn {
-	// 		if(["smoke", typeOf (_this select 6)] call BIS_fnc_inString) then {
-	// 			_missile = _this select 6;
 
-	// 			[_this select 6] call projectileTrackHit;
+	
+};
 
-	// 			_cam = "camera" camCreate (position (_this select 6)); 
-	// 			_cam cameraEffect ["Internal", "Back"];
-	// 			// _cam camCommand "MANUAL ON";
-	// 			_cam camCommand "speedMax 1";
-	// 			_cam camCommand "speedDefault 0.1";
-	// 			_cam camCommand "atl on";
-	// 			_cam camCommand "surfaceSpeed on";
-	// 			_cam camCommand "maxPitch 30";
-	// 			_cam camCommand "minPitch -30";
+if(PARADROP_TOOL_ENABLED) then 
+{
+	//!isTouchingGround player && leader player == player(? check that the player is the leader)
+	["Paradrop Group", "Paradrop Squad", {
 
-	// 			_cam camCommitPrepared 0;
-
-	// 			deleteVehicle _missile;
-
-	// 			waitUntil {camCommitted _cam};
-
-	// 			CAM_ON = true;
-
-	// 			_action = ["ReturntoBody","Return to Body","",{params ["_cam"]; _cam cameraEffect ["Terminate", "Back"];camDestroy _cam; CAM_ON = false; [player,1,["ACE_SelfActions","ReturntoBody"]] call ace_interact_menu_fnc_removeActionFromObject;},{CAM_ON},{},[_cam]] call ace_interact_menu_fnc_createAction;
-	// 			[player, 1, ["ACE_SelfActions"], _action] call ace_interact_menu_fnc_addActionToObject;
-				
-	// 		} else {
-	// 			systemChat "NOT SMOKE GONE";
-	// 		};
-
-			
-	// 	};
-	// }];
+		
+		[player] spawn performParadrop;
 
 
+	}, {!isTouchingGround player && //Player is off of the ground
+	leader player == player && //Player is the leader of the group
+	((vehicle player) isKindOf "plane" || (vehicle player) isKindOf "helicopter") //Player is in plane or helicopter
+	
+	}] call addActionSelfInteract;
+
+
+
+	["Parachute Eject", "Parachute Eject", {
+		[player] spawn paradropTroop;
+	}, {!isTouchingGround player && //Player is off of the ground
+	((vehicle player) isKindOf "plane" || (vehicle player) isKindOf "helicopter") //Player is in plane or helicopter
+	}] call addActionSelfInteract;
+		
 };
 
 
-
-
-
-//Fixes ace bad kill counter
-addMissionEventHandler ["EntityKilled",{
-	params ["_killed", "_killer", "_instigator"];
-	if (isPlayer _instigator) then {
-		if (not (side group _killed isEqualTo side _instigator)) then {
-			if(_killed isKindOf "Man") then 
-			{
-				instigator addPlayerScores [1, 0, 0, 0,0];
-			};			
-	};
-};
-}];
-
-
-//Always initialize this, but only 
+//Always initialize this
 call compile preprocessFileLineNumbers "Scripts\Attrition\onStart.sqf";
 
 

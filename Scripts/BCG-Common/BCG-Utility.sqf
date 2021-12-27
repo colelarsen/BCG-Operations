@@ -16,6 +16,17 @@ getSideGroupNums = {
 };
 
 //Add actions to Zeus ACE interact
+addActionSelfInteract = {
+    _name = _this select 0;
+    _description = _this select 1;
+    _statement = _this select 2;
+    _condition = _this select 3;
+
+	myaction = [_description, _name,'',_statement,_condition] call ace_interact_menu_fnc_createAction;
+	[player, 1, ["ACE_SelfActions"], myaction] call ace_interact_menu_fnc_addActionToObject;
+};
+
+//Add actions to Zeus ACE interact
 addActionGameMasterAce = {
 
     _name = _this select 0;
@@ -42,6 +53,37 @@ addSubActionGameMasterAce = {
 
 
 
+paradropTroop = {
+	params ["_x"];
+	_x allowDamage false;
+	[_x] call zade_boc_fnc_actionOnChest;
+	_x addBackpack "B_Parachute";
+	_x action ["getOut", vehicle _x];
+	sleep 2;
+	_x action ["OpenParachute", _x];
+	sleep 5;
+	_x allowDamage false;
+	unassignVehicle _x;
+
+};
+
+performParadrop = {
+	params ["_player"];
+	{
+		if(_x != _player) then {
+			if(isPlayer _x) then {
+				[_x,paradropTroop] remoteExec ["spawn",_x];
+			}
+			else then {
+				[_x] spawn paradropTroop;
+			};
+			sleep 0.5;
+		};
+	} foreach units (group _player);
+	[_player] spawn paradropTroop;
+
+	
+};
 
 
 

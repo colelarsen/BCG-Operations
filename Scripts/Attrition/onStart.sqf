@@ -15,6 +15,3 @@ if(ATTRITION_ENABLED) then {
 	["ResumeWaves", "Resume Waves", {SHOULD_KEEP_SPAWNING = true; publicVariable "SHOULD_KEEP_SPAWNING"}, {not SHOULD_KEEP_SPAWNING}, "Attrition"] call addSubActionGameMasterAce;
 }
 
-
-
-
