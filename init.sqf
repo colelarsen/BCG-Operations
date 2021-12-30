@@ -49,7 +49,6 @@ else {
 	{
 		//!isTouchingGround player && leader player == player(? check that the player is the leader)
 		["Paradrop", "Paradrop", {}, {
-		leader player == player && //Player is the leader of the group
 		((getPos player) select 2) > 50 &&
 		((vehicle player) isKindOf "plane" || (vehicle player) isKindOf "helicopter") //Player is in plane or helicopter
 		}] call addActionSelfInteract;
