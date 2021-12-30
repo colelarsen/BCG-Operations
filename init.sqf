@@ -48,6 +48,14 @@ else {
 	if(PARADROP_TOOL_ENABLED) then 
 	{
 		//!isTouchingGround player && leader player == player(? check that the player is the leader)
+		["Paradrop", "Paradrop", {}, {
+		leader player == player && //Player is the leader of the group
+		((getPos player) select 2) > 50 &&
+		((vehicle player) isKindOf "plane" || (vehicle player) isKindOf "helicopter") //Player is in plane or helicopter
+		}] call addActionSelfInteract;
+
+
+
 		["Paradrop Group", "Paradrop Squad", {
 
 			
@@ -56,17 +64,17 @@ else {
 
 		}, {
 		leader player == player && //Player is the leader of the group
+		((getPos player) select 2) > 50 &&
 		((vehicle player) isKindOf "plane" || (vehicle player) isKindOf "helicopter") //Player is in plane or helicopter
 		
-		}] call addActionSelfInteract;
+		}, "Paradrop"] call addSubActionSelfInteract;
 
 
 
 		["Parachute Eject", "Parachute Eject", {
-			[player] spawn paradropTroop;
-		}, {
-		(vehicle player) isKindOf "plane" || (vehicle player) isKindOf "helicopter" //Player is in plane or helicopter
-		}] call addActionSelfInteract;
+			[player, vehicle player, true] spawn paradropTroop;
+		}, {((getPos player) select 2) > 50 &&
+			((vehicle player) isKindOf "plane" || (vehicle player) isKindOf "helicopter")}, "Paradrop"] call addSubActionSelfInteract;
 			
 	};
 };

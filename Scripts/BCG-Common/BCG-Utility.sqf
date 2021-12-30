@@ -26,6 +26,17 @@ addActionSelfInteract = {
 	[player, 1, ["ACE_SelfActions"], myaction] call ace_interact_menu_fnc_addActionToObject;
 };
 
+addSubActionSelfInteract = {
+    _name = _this select 0;
+    _description = _this select 1;
+    _statement = _this select 2;
+    _condition = _this select 3;
+	_path = _this select 4;
+
+	myaction = [_description, _name,'',_statement,_condition] call ace_interact_menu_fnc_createAction;
+	[player, 1, ["ACE_SelfActions", _path], myaction] call ace_interact_menu_fnc_addActionToObject;
+};
+
 //Add actions to Zeus ACE interact
 addActionGameMasterAce = {
 
@@ -54,17 +65,24 @@ addSubActionGameMasterAce = {
 
 
 paradropTroop = {
-	params ["_x", "_vehicle"];
-	if(vehicle _x == _vehicle)
-	_x allowDamage false;
-	[_x] call zade_boc_fnc_actionOnChest;
-	_x addBackpack "B_Parachute";
-	_x action ["getOut", vehicle _x];
-	sleep 2;
-	_x action ["OpenParachute", _x];
-	sleep 5;
-	_x allowDamage false;
-	unassignVehicle _x;
+	params ["_x", "_vehicle", "_isPlayer"];
+	if(_isPlayer) then {
+		_x = player;
+	};
+
+	if((vehicle _x) == _vehicle && (vehicle _x) != _x) then {
+		_x allowDamage false;
+		[_x] call zade_boc_fnc_actionOnChest;
+		//Type of Parachute to use
+		_x addBackpack PARADROP_PARACHUTE_TO_USE;
+		_x action ["getOut", vehicle _x];
+		sleep 2;
+		_x action ["OpenParachute", _x];
+		sleep 5;
+		_x allowDamage false;
+		unassignVehicle _x;
+	};
+	
 
 };
 
@@ -72,16 +90,19 @@ performParadrop = {
 	params ["_player"];
 	{
 		if(_x != _player) then {
+			//Eject other Players in group
 			if(isPlayer _x) then {
-				[_x, vehicle _player] remoteExec ["paradropTroop",_x];
+				[_x, vehicle _player, true] remoteExec ["paradropTroop",_x];
 			}
+			//Eject AI in group
 			else {
-				[_x] spawn paradropTroop;
+				[_x, vehicle _player, false] spawn paradropTroop;
 			};
+			//Delay between ejects
 			sleep 0.5;
 		};
 	} foreach units (group _player);
-	[_player] spawn paradropTroop;
+	[player, vehicle player, true] spawn paradropTroop;
 
 	
 };
