@@ -55,12 +55,18 @@ else {
 
 
 
-		["Paradrop Group", "Paradrop Squad", {
-
-			
+		["Paradrop Group", "Paradrop Group", {
 			[player] spawn performParadrop;
+		}, {
+		leader player == player && //Player is the leader of the group
+		((getPos player) select 2) > 50 &&
+		((vehicle player) isKindOf "plane" || (vehicle player) isKindOf "helicopter") //Player is in plane or helicopter
+		
+		}, "Paradrop"] call addSubActionSelfInteract;
 
 
+		["Paradrop Cargo", "Paradrop Cargo", {
+			[player] spawn performParadropCargo;
 		}, {
 		leader player == player && //Player is the leader of the group
 		((getPos player) select 2) > 50 &&

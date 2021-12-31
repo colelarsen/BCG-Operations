@@ -13,7 +13,7 @@ safety = {
 		//Turn safety on
 		case true:
 		{
-			hint "Safety On";
+			hint "Game Master has not started the mission. Weapons are SAFE";
 			SAFETY_ON_SERVER = true;
 			// Delete bullets from fired weapons
 			if (isNil "f_eh_safetyMan") then {
@@ -37,7 +37,7 @@ safety = {
 		//Turn safety off
 		case false;
 		default {
-			hint "Safety Off";
+			hint "Game Master has started the mission. Weapons are HOT";
 			SAFETY_ON_SERVER = false;
 			//Allow player to fire weapons
 			if !(isNil "f_eh_safetyMan") then {

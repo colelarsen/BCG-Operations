@@ -86,6 +86,34 @@ paradropTroop = {
 
 };
 
+
+performParadropCargo = {
+	params ["_player"];
+	{
+		if(_x != _player) then {
+			//Eject players in group
+			if(isPlayer _x && (vehicle _player) getCargoIndex _x > 0) then {
+				hint "Dropping player as cargo";
+				[_x, vehicle _player, true] remoteExec ["paradropTroop",_x];
+			}
+			//Eject AI in group
+			else {
+				if((vehicle _player) getCargoIndex _x > 0) then {
+					hint "Dropping unit as cargo";
+					[_x, vehicle _player, false] spawn paradropTroop;
+				};
+				
+			};
+			sleep 1;
+		};
+	} foreach crew (vehicle _player);
+
+	if((vehicle _player) getCargoIndex _player > 0) then {
+		hint "Dropping group lead";
+		[_player, vehicle _player, true] spawn paradropTroop;
+	};
+};
+
 performParadrop = {
 	params ["_player"];
 	{
@@ -99,10 +127,10 @@ performParadrop = {
 				[_x, vehicle _player, false] spawn paradropTroop;
 			};
 			//Delay between ejects
-			sleep 0.5;
+			sleep 1;
 		};
 	} foreach units (group _player);
-	[player, vehicle player, true] spawn paradropTroop;
+	[_player, vehicle _player, true] spawn paradropTroop;
 
 	
 };
