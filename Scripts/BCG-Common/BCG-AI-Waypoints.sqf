@@ -3,7 +3,7 @@ aiUpdater = {
 	while {true} do {
 		//Update the move orders of spawned groups to a current player position
 		{
-			_moveHere = selectRandom allPlayers;
+			_moveHere = selectRandom (allPlayers - entities "HeadlessClient_F");
 			_EditGroup = _x;
 			if(count waypoints _EditGroup >= 3) then {
 				deleteWaypoint [_EditGroup, 0];
