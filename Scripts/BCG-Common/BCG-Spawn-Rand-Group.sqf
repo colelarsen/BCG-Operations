@@ -83,7 +83,7 @@ spawnWaves = {
                         //Groups should get in vehicle then move out
                         _NewGroup addVehicle (vehicle ((units _NewGroup) select 0));
                         
-                        _moveHere = selectRandom allPlayers; 
+                        _moveHere = call getRandomPlayerLocation;
 
                         NewGroupWayPoint = _NewGroup addWaypoint [position ((units _NewGroup) select 0), 0];
                         NewGroupWayPoint setWaypointType "GETIN";
@@ -105,9 +105,10 @@ spawnWaves = {
                         _pilots setVariable [_type,true];
                         _pilots addVehicle _helicopter;
 
-                        _moveHere = selectRandom allPlayers;
+                        _moveHere = call getRandomPlayerLocation;
                         //Land somewhere 200-300m away from a random player
-                        _helicopterLanding = [_moveHere, (random [200, 250, 300])] call getRandomPositionNearObject;
+                        _helicopterLanding = [_moveHere, (random [HELICOPER_DROP_OFF_MIN_RADIUS, HELICOPER_DROP_OFF_MED_RADIUS, HELICOPER_DROP_OFF_MAX_RADIUS]), _SpawnPosistion] call getClosePositionNearObject;
+                        
                         
 
                         {_x moveincargo _helicopter} foreach units _troops;
@@ -207,7 +208,7 @@ spawnWaves = {
                         _NewGroup setVariable [_type,true];
                         MAXIMUM_SPAWNED_GROUPS = MAXIMUM_SPAWNED_GROUPS - 1;
 
-                        _moveHere = selectRandom allPlayers; 
+                        _moveHere = call getRandomPlayerLocation;
 
                         {
                             _x enableAi "AUTOCOMBAT";

@@ -21,9 +21,9 @@ _helidrop = {
 
         _SpawnArray = [_spawn1];
 
-        _Spawnmaxdelay = 400;
-        _Spawnavgdelay = 400;
-        _Spawnmindelay = 400;
+        _Spawnmaxdelay = 40000;
+        _Spawnavgdelay = 40000;
+        _Spawnmindelay = 40000;
         _SpawnAvgDegrade = 0;
 
         _Spawnside = OPFOR;

@@ -15,6 +15,11 @@ getSideGroupNums = {
     count (allGroups select {side _x == _Spawnside && (_x getVariable ["spawned",false])});
 };
 
+//Get number of groups on a side that BCG spawned
+getRandomPlayerLocation = {
+    selectRandom (allPlayers - entities "HeadlessClient_F");
+};
+
 //Add actions to Zeus ACE interact
 addActionSelfInteract = {
     _name = _this select 0;
@@ -189,4 +194,73 @@ getRandomPositionNearObject = {
 	};
 
 	[(_centre select 0) + (sin _dir *_radius), (_centre select 1) + (cos _dir *_radius), _height];
+};
+
+getClosePositionNearObject = {
+	params [
+	["_C", objNull, [objNull, []]],
+	["_R", 50, [0]],
+	["_A", objNull, [objNull, []]],
+	["_dir", random 360, [0]],
+	["_height", 0, [0]]
+	];
+
+
+	if (typename _C == "OBJECT") then {
+		_C = getpos _C;
+	};
+
+
+	_Cx = _C select 0;
+	_Cy = _C select 1;
+
+	_Ax = _A select 0;
+	_Ay = _A select 1;
+
+	_Bx = (_C select 0) + (sin _dir *_R);
+	_By = (_C select 1) + (cos _dir *_R);
+	
+
+
+
+
+
+
+	// compute the euclidean distance between A and B
+	_LAB = sqrt ( (_Bx-_Ax)*(_Bx-_Ax)+(_By-_Ay)*(_By-_Ay) );
+
+	// compute the direction vector D from A to B
+	_Dx = (_Bx-_Ax)/_LAB;
+	_Dy = (_By-_Ay)/_LAB;
+
+	// the equation of the line AB is x = Dx*t + Ax, y = Dy*t + Ay with 0 <= t <= LAB.
+
+	// compute the distance between the points A and E, where
+	// E is the point of AB closest the circle center (Cx, Cy)
+	_t = _Dx*(_Cx-_Ax) + _Dy*(_Cy-_Ay);
+
+	// compute the coordinates of the point E
+	_Ex = _t*_Dx+_Ax;
+	_Ey = _t*_Dy+_Ay;
+
+	// compute the euclidean distance between E and C
+	_LEC = sqrt((_Ex-_Cx)*(_Ex-_Cx)+(_Ey-_Cy)*(_Ey-_Cy));
+
+	// test if the line intersects the circle
+	// compute distance from t to circle intersection point
+	_dt = sqrt(_R*_R - _LEC*_LEC);
+
+	// compute first intersection point
+	_Fx = (_t-_dt)*_Dx + _Ax;
+	_Fy = (_t-_dt)*_Dy + _Ay;
+
+	// compute second intersection point
+	_Gx = (_t+_dt)*_Dx + _Ax;
+	_Gy = (_t+_dt)*_Dy + _Ay;
+
+	systemChat format ["%1 : %2", _Fx, _Fy];
+
+	[_Fx, _Fy, _height];
+
+	
 };
